@@ -1,5 +1,7 @@
 "use client"
 import React, { AnyActionArg, useState } from 'react'
+import AllReviewPage from '../allreview'
+
 
 const CustomerReviewPage = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -245,53 +247,11 @@ const CustomerReviewPage = () => {
           </div>
         </section>
 
+        
+
 
       {/* Reviews Section */}
-      <section id="reviews" className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {reviews.map((review) => (
-              <div key={review.id} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                {/* Review Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
-                      {review.avatar}
-                    </div>
-                    <div>
-                      <div className="flex items-center space-x-2">
-                        <h3 className="font-semibold text-gray-900">{review.name}</h3>
-                        {review.verified && (
-                          <svg className="w-4 h-4 text-green-500" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                          </svg>
-                        )}
-                      </div>
-                      <p className="text-sm text-gray-600">{review.role} at {review.company}</p>
-                    </div>
-                  </div>
-                  <span className="text-sm text-gray-500">{review.date}</span>
-                </div>
-
-                {/* Rating */}
-                <div className="flex items-center space-x-1 mb-4">
-                  {renderStars(review.rating)}
-                </div>
-
-                {/* Review Text */}
-                <p className="text-gray-700 leading-relaxed">{review.review}</p>
-              </div>
-            ))}
-          </div>
-
-          {/* Load More Button */}
-          <div className="text-center mt-12">
-            <button className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-3 rounded-xl hover:from-indigo-600 hover:to-purple-700 transition-all duration-200 shadow-lg hover:shadow-xl font-semibold">
-              Load More Reviews
-            </button>
-          </div>
-        </div>
-      </section>
+      <AllReviewPage />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-indigo-500 to-purple-600">

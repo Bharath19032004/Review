@@ -65,12 +65,13 @@ export async function POST(request: NextRequest) {
       data: {
         productName: productName.trim(),
         description: description.trim(),
-        ...(boughtFrom ? { boughtFrom: boughtFrom.trim() } : {}),
-        ...(typeof stars === "number" ? { stars } : {}),
-        images: Array.isArray(images) ? images : [],
-        user: { connect: { id: user.id } },
+        stars,
+        user: {
+          connect: { id: user.id },
+        },
       },
-    })
+    });
+
 
     return NextResponse.json(review, { status: 201 })
   } catch (error) {

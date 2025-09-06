@@ -3,6 +3,7 @@
 
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// prisma/schema.prisma
 generator client {
   provider = "prisma-client-js"
 }
@@ -22,13 +23,18 @@ model User {
 
 model Review {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
-  productName String
-  description String?
-
-  boughtFromUrl String?   // match frontend
-  stars         Int?      
-  imageUrl      String?   // single URL instead of array
-
+  customerName String?  // New field
+  mobileNumber String?  // New field
+  productType  String   // New field: Mobile Phone, Accessories, Repair Service, Other
+  productName  String   // Specific product name
+  description  String?
+  stars        Int?     // Rating 1-5
+  productQuality String? // Excellent, Good, Average, Poor
+  serviceQuality String? // Excellent, Good, Average, Poor
+  wouldRecommend Boolean? // Yes/No
+  imageUrl      String?
+  boughtFromUrl String?
+  
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
