@@ -245,7 +245,7 @@ const AllReviewPage = () => {
               {/* Review Text */}
               {review.description && (
                 <div className="mb-4 flex-1">
-                  <p className="text-gray-700 leading-relaxed text-sm line-clamp-4">"{review.description}"</p>
+                  <p className="text-gray-700 leading-relaxed text-sm line-clamp-4">{review.description}</p>
                 </div>
               )}
 

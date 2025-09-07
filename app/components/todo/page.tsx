@@ -79,18 +79,6 @@ export default function Dashboard() {
     revalidateOnFocus: true,
   })
 
-  // Redirect if not authenticated
-  if (status === 'loading') return (
-    <div className="min-h-screen bg-white flex items-center justify-center">
-      <div className="text-center">
-        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600 mx-auto mb-4"></div>
-        <p className="text-gray-600 text-lg">Loading dashboard...</p>
-      </div>
-    </div>
-  )
-  
-  if (status === 'unauthenticated') redirect('/auth/signin')
-
   // Calculate analytics when reviews change
   useEffect(() => {
     if (reviews.length > 0) {
@@ -138,6 +126,18 @@ export default function Dashboard() {
       setShowReviewForm(false)
     }
   }, [showReviewForm, timeLeft])
+
+  // Redirect if not authenticated
+  if (status === 'loading') return (
+    <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+        <p className="text-gray-600 text-lg">Loading dashboard...</p>
+      </div>
+    </div>
+  )
+  
+  if (status === 'unauthenticated') redirect('/auth/signin')
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60)
@@ -337,7 +337,7 @@ export default function Dashboard() {
                       outerRadius={80}
                       fill="#8884d8"
                       dataKey="value"
-                      label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
+                      label={({ name, percent }) => `${name} (${((percent ?? 0) * 100).toFixed(0)}%)`}
                     >
                       {analytics.productTypeDistribution.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
@@ -534,7 +534,7 @@ export default function Dashboard() {
                     </div>
                     
                     {review.description && (
-                      <p className="text-gray-600 text-sm mb-4 italic">"{review.description}"</p>
+                      <p className="text-gray-600 text-sm mb-4 italic">{review.description}</p>
                     )}
                     
                     {review.imageUrl && (
