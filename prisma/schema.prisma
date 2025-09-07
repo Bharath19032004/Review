@@ -25,8 +25,8 @@ model Review {
   id          String   @id @default(auto()) @map("_id") @db.ObjectId
   customerName String?  // New field
   mobileNumber String?  // New field
-  productType  String   // New field: Mobile Phone, Accessories, Repair Service, Other
-  productName  String   // Specific product name
+  productType  String?  // New field: Mobile Phone, Accessories, Repair Service, Other
+  productName  String?  // Specific product name
   description  String?
   stars        Int?     // Rating 1-5
   productQuality String? // Excellent, Good, Average, Poor
