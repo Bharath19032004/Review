@@ -2,16 +2,31 @@
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/app/lib/authOptions"
-import { PrismaClient } from "@prisma/client"
+import { prisma } from "@/lib/prisma" // Use the shared instance
 
-const prisma = new PrismaClient()
-
-// GET all mobile shop reviews (public)
-export async function GET() {
+// GET all mobile shop reviews for the authenticated user only
+export async function GET(request: NextRequest) {
   try {
+    const session = await getServerSession(authOptions)
+
+    if (!session?.user?.email) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    // Get the authenticated user
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+    })
+
+    if (!user) {
+      return NextResponse.json({ error: "User not found" }, { status: 404 })
+    }
+
+    // Only get reviews created by this user
     const reviews = await prisma.review.findMany({
       where: {
-        // Filter out reviews with null required fields - CORRECTED SYNTAX
+        userId: user.id,
+        // Filter out reviews with null required fields
         AND: [
           { productType: { not: null } },
           { productName: { not: null } }
@@ -33,9 +48,26 @@ export async function GET() {
   } catch (error) {
     console.error("Error fetching reviews:", error)
     
-    // Fallback: Try to get all reviews and filter manually
+    // Fallback: Try to get all reviews for the user and filter manually
     try {
+      const session = await getServerSession(authOptions)
+      
+      if (!session?.user?.email) {
+        return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+      }
+
+      const user = await prisma.user.findUnique({
+        where: { email: session.user.email },
+      })
+
+      if (!user) {
+        return NextResponse.json({ error: "User not found" }, { status: 404 })
+      }
+
       const allReviews = await prisma.review.findMany({
+        where: {
+          userId: user.id
+        },
         include: {
           user: {
             select: {
@@ -64,7 +96,7 @@ export async function GET() {
   }
 }
 
-// POST - Create new mobile shop review
+// POST - Create new mobile shop review for the authenticated user
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)

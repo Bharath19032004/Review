@@ -1,13 +1,11 @@
+// app/lib/authOptions.ts
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { compare } from "bcryptjs";
-import { PrismaClient } from "@/app/generated/prisma";
-
-const prisma = new PrismaClient();
+import { prisma } from "@/lib/prisma"; // Import the shared instance
 
 export const authOptions: NextAuthOptions = {
   providers: [
-    // Credentials Provider for email/password login
     CredentialsProvider({
       name: "Credentials",
       credentials: {
