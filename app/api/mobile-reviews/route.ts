@@ -1,3 +1,4 @@
+export const runtime = "nodejs";
 // app/api/mobile-reviews/route.ts
 import { NextRequest, NextResponse } from "next/server"
 import { getServerSession } from "next-auth/next"
