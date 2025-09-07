@@ -143,14 +143,14 @@ export default function SignUpPage() {
           </div>
 
           {/* Divider */}
-          <div className="mt-8 flex items-center">
+          {/* <div className="mt-8 flex items-center">
             <div className="flex-1 border-t border-gray-200"></div>
             <span className="px-4 text-gray-500 text-sm">or continue with</span>
             <div className="flex-1 border-t border-gray-200"></div>
-          </div>
+          </div> */}
 
           {/* Social buttons */}
-          <div className="mt-6 grid grid-cols-2 gap-3">
+          {/* <div className="mt-6 grid grid-cols-2 gap-3">
             <button 
               type="button"
               className="py-3 px-4 border border-gray-300 rounded-lg text-gray-700 font-medium hover:bg-gray-50 transition-colors duration-200 flex items-center justify-center"
@@ -172,7 +172,7 @@ export default function SignUpPage() {
               </svg>
               GitHub
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
